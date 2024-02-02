@@ -5483,11 +5483,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\My projects\\2024\\Farmers App\\Backend\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectUniqueName": "D:\\My projects\\2024\\Farmers App\\Backend\\backend\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "D:\\My projects\\2024\\Farmers App\\Backend\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectPath": "D:\\My projects\\2024\\Farmers App\\Backend\\backend\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "packagesPath": "C:\\Users\\IsuruWijesekara\\.nuget\\packages\\",
-      "outputPath": "D:\\My projects\\2024\\Farmers App\\Backend\\WebApplication1\\WebApplication1\\obj\\",
+      "outputPath": "D:\\My projects\\2024\\Farmers App\\Backend\\backend\\WebApplication1\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
