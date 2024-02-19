@@ -19,16 +19,72 @@ namespace WebApplication1.Controllers
         }
 
 
-        [HttpPost("login")]
-        public IActionResult Login(UserViewModel user)
+        //[HttpGet]
+        //[Route("login/{username}/{passowrd}")]
+        //public IActionResult Login(string username, string passowrd)
+        //{
+        //    return Ok(_userAccountFacade.UserLogin(username, passowrd));
+        //}
+
+        [HttpGet]
+        [Route("login/{username}/{password}")]
+        public IActionResult Login(string username, string password)
         {
-            return Ok(_userAccountFacade.UserLogin(user.Username, user.Password));
+            string loginSuccess = _userAccountFacade.UserLogin(username, password);
+
+            if (loginSuccess != "UserNotFound")
+            {
+                string[] userInfo = loginSuccess.Split(',');
+
+                var response = new StandardJsonResponse<object>
+                {
+                    Code = 200,
+                    Message = "Success",
+                    Data = new
+                    {
+                        UserId = Convert.ToInt32(userInfo[0]),
+                        FirstName = userInfo[1],
+                        LastName = userInfo[2],
+                        Role = userInfo[3]
+                    }
+                };
+                return Ok(response);
+            }
+            else
+            {
+                var response = new StandardJsonResponse<object>
+                {
+                    Code = 400,
+                    Message = "Invalid credentials",
+                    Data = null
+                };
+                return BadRequest(response);
+            }
         }
 
-        [HttpPost("register")]
-        public IActionResult Register(UserViewModel user)
+        //[Route("login/{username}/{password}")]
+        [HttpPost]
+        [Route("register/{email}/{role}/{firstname}/{lastname}/{password}")]
+        public IActionResult Register(string email,string role, string firstname,string lastname, string password)
         {
-            return Ok(_userAccountFacade.Register(user.Username, user.Password, user.Role, user.Email));
+            try
+            {
+                bool registerSuccess = _userAccountFacade.Register(email, role, firstname, lastname, password);
+                if (registerSuccess)
+                {
+                    return Ok(new { success = true });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, error = "User already exist" });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
     }
 }

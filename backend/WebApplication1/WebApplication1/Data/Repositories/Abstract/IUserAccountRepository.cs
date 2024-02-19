@@ -7,7 +7,7 @@ namespace WebApplication1.Data.Repositories.Abstract
 {
     public interface IUserAccountRepository
     {
-        public bool UserLogin(string uname, string password);
-        public bool Register(string uname, string password, string role, string email);
+        public string UserLogin(string uname, string password);
+        public bool Register(string email, string role, string firstname, string lastname, string password);
     }
 }

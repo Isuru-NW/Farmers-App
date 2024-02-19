@@ -60,7 +60,19 @@ namespace WebApplication1
             });
 
             // CORS configuration (if needed)
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("http://localhost:62327")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+
+            // Inside Configure method, before UseEndpoints
+            //app.UseCors();
+            //services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

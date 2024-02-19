@@ -44,6 +44,23 @@ namespace WebApplication1.Data.DBProviders
             return _SqlDataReader;
         }
 
+        public object ExecuteScalar(string sqlQuery, DbParameter[] parameters)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.Connection = _SqlConnection;
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.CommandText = sqlQuery;
+            sqlCommand.Parameters.Clear();
+            AddParameters(sqlCommand, parameters);
+
+            if (_SqlTransaction != null)
+                sqlCommand.Transaction = _SqlTransaction;
+
+            // ExecuteScalar instead of ExecuteReader
+            return sqlCommand.ExecuteScalar();
+        }
+
+
         void AddParameters(SqlCommand sqlCommand, DbParameter[] parameters)
         {
             if (parameters != null)

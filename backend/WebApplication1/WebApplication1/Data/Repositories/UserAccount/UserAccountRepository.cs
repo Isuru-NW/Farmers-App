@@ -18,43 +18,52 @@ namespace WebApplication1.Data.Repositories.UserAccount
             SQLDbContext = sqlDbContext;
         }
 
-        public bool Register(string uname, string password,string role, string email) 
+        public bool Register(string email, string role, string firstname, string lastname, string password) 
         {
             try
             {
-                var dbParams = new DbParameter[4];
-                dbParams[0] = StringParameter("@Username", uname);
-                dbParams[1] = StringParameter("@Password", password);
-                dbParams[2] = StringParameter("@Role", role);
-                dbParams[3] = StringParameter("@Email", email);
+                var dbParams = new DbParameter[5];
+                dbParams[0] = StringParameter("@Email", email);
+                dbParams[1] = StringParameter("@Role", role);
+                dbParams[2] = StringParameter("@Firstname", firstname);
+                dbParams[3] = StringParameter("@Lastname", lastname);               
+                dbParams[4] = StringParameter("@Password", password); 
 
-                DbDataReader dbDataReader = SQLDbContext.ExecuetReader("RegisterUser", dbParams);
+                object result = SQLDbContext.ExecuteScalar("RegisterUser", dbParams);
 
-                return true;
+                if (result != null && result.ToString() == "Success")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
-
                 return false;
             }
         }
 
-        public bool UserLogin(string uname,string password) 
+        public string UserLogin(string email, string password)
         {
             try
             {
                 var dbParams = new DbParameter[2];
-                dbParams[0] = StringParameter("@Username", uname);
+                dbParams[0] = StringParameter("@Email", email);
                 dbParams[1] = StringParameter("@Password", password);
 
-                DbDataReader dbDataReader = SQLDbContext.ExecuetReader("LoginUser", dbParams);
+                object result = SQLDbContext.ExecuteScalar("LoginUser", dbParams);
+
+                return result.ToString();
             }
             catch (Exception)
             {
-
+                // Handle exceptions if needed
                 throw;
             }
-            return true;
         }
+
     }
 }

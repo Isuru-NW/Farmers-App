@@ -30,5 +30,12 @@ namespace WebApplication1.Data.Repositories
             return param;
         }
 
+        public DbParameter DecimalParameter(string name, decimal? value = null, ParameterDirection direction = ParameterDirection.Input)
+        {
+            var param = CreateParameter(name, DbType.Decimal, value, direction);
+            return param;
+        }
+
+
     }
 }

@@ -14,14 +14,14 @@ namespace WebApplication1.Facades.UserAccountFacade
         {
             this._userAccountFacade = userAccountfacade;
         }
-        public bool UserLogin(string uname, string password)
+        public string UserLogin(string uname, string password)
         {
             return _userAccountFacade.UserLogin(uname, password);
         }
 
-        public bool Register(string uname, string password, string role, string email)
+        public bool Register(string email, string role, string firstname, string lastname, string password)
         {
-            return _userAccountFacade.Register(uname, password, role, email);
+            return _userAccountFacade.Register(email, role, firstname, lastname, password);
         }
     }
 }
